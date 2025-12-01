@@ -4,7 +4,7 @@ Deep-dive learning roadmap from low-level JavaScript to high-level React archite
 
 ## Documentation
 
-Read the full documentation here: [Documentation Site](http://localhost:5173) (Run `npm run docs:dev` to view).
+Read the full documentation by running `npm run docs:dev` locally.
 
 ## Structure
 - **01-javascript-internals**: JS Engine, Runtime, etc.
