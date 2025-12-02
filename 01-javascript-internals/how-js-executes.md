@@ -8,19 +8,74 @@ When you write JavaScript, the engine (like V8 in Chrome) breaks it down in a sp
 
 ::: info 🧠 V8 Engine Pipeline
 
-```
-[ Source Code ]
-      ⬇️
-[  Tokenizer  ]  →  [ Tokens ]
-      ⬇️
-[   Parser    ]  →  [  AST   ]
-      ⬇️
-[ Interpreter ]  →  [ Bytecode ]
-      ⬇️              ⬇️
-[ JIT Compiler]  →  [ Machine Code ] ⚡
-      ⬆️              ⬇️
-      ┗━━(De-opt)━━━━━┛
-```
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
+  <!-- Definitions for markers -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#888" />
+    </marker>
+  </defs>
+
+  <!-- Styles -->
+  <style>
+    .box { fill: #f9f9f9; stroke: #333; stroke-width: 2px; rx: 8; }
+    .box-active { fill: #e3f2fd; stroke: #1565c0; stroke-width: 2px; rx: 8; }
+    .box-final { fill: #e8f5e9; stroke: #2e7d32; stroke-width: 2px; rx: 8; }
+    .text { font-family: sans-serif; font-size: 14px; fill: #333; text-anchor: middle; dominant-baseline: middle; }
+    .label { font-family: sans-serif; font-size: 12px; fill: #666; text-anchor: middle; background: white; }
+    .path { stroke: #888; stroke-width: 2px; fill: none; marker-end: url(#arrow); }
+    .path-dashed { stroke: #d32f2f; stroke-width: 2px; fill: none; stroke-dasharray: 5,5; marker-end: url(#arrow); }
+  </style>
+
+  <!-- Nodes -->
+  <!-- Row 1 -->
+  <rect x="50" y="50" width="120" height="60" class="box" />
+  <text x="110" y="80" class="text">📄 Source Code</text>
+
+  <rect x="250" y="50" width="120" height="60" class="box" />
+  <text x="310" y="80" class="text">🧱 Tokens</text>
+
+  <rect x="450" y="50" width="120" height="60" class="box" />
+  <text x="510" y="80" class="text">🌳 AST</text>
+
+  <!-- Row 2 -->
+  <rect x="450" y="180" width="120" height="60" class="box-active" />
+  <text x="510" y="210" class="text">⚙️ Bytecode</text>
+
+  <!-- Row 3 -->
+  <rect x="250" y="300" width="120" height="60" class="box-final" />
+  <text x="310" y="330" class="text">⚡ Machine Code</text>
+
+  <rect x="450" y="300" width="120" height="60" class="box-active" />
+  <text x="510" y="330" class="text">🚀 TurboFan JIT</text>
+
+  <!-- Edges -->
+  <!-- Source -> Tokens -->
+  <path d="M170 80 L250 80" class="path" />
+  <text x="210" y="70" class="label">Tokenizer</text>
+
+  <!-- Tokens -> AST -->
+  <path d="M370 80 L450 80" class="path" />
+  <text x="410" y="70" class="label">Parser</text>
+
+  <!-- AST -> Bytecode -->
+  <path d="M510 110 L510 180" class="path" />
+  <text x="545" y="145" class="label">Ignition (Interpreter)</text>
+
+  <!-- Bytecode -> TurboFan -->
+  <path d="M510 240 L510 300" class="path" />
+  <text x="550" y="270" class="label">Profiler (Hot Code)</text>
+
+  <!-- TurboFan -> Machine Code -->
+  <path d="M450 330 L370 330" class="path" />
+  <text x="410" y="320" class="label">Optimizes</text>
+
+  <!-- Machine Code -> Bytecode (Deopt) -->
+  <path d="M310 300 C 310 200, 400 210, 450 210" class="path-dashed" />
+  <text x="360" y="230" class="label" fill="#d32f2f">De-optimization</text>
+
+</svg>
+
 :::
 
 ---
