@@ -12,76 +12,25 @@ By the end of this guide, you'll understand:
 
 ## 🛠️ The Execution Pipeline
 
-::: info 🧠 V8 Engine Pipeline
-<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; max-width: 100%; border: 1px solid #e2e8f0; border-radius: 8px;">
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#334155" />
-    </marker>
-  </defs>
-  <style>
-    .step-box { fill: #ffffff; stroke-width: 2px; rx: 8; stroke: #334155; }
-    .source { stroke: #e11d48; fill: #ffe4e6; }
-    .parse { stroke: #ea580c; fill: #ffedd5; }
-    .ast { stroke: #ca8a04; fill: #fef9c3; }
-    .byte { stroke: #2563eb; fill: #dbeafe; }
-    .opt { stroke: #16a34a; fill: #dcfce7; }
-    .machine { stroke: #9333ea; fill: #f3e8ff; }
-    
-    .text-title { font-family: sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; fill: #1e293b; }
-    .text-icon { font-size: 24px; text-anchor: middle; }
-    .path { stroke: #334155; stroke-width: 2px; fill: none; marker-end: url(#arrow); }
-    .label { font-family: sans-serif; font-size: 11px; fill: #475569; text-anchor: middle; background: white;  }
-  </style>
 
-  <!-- Row 1 -->
-  <rect x="50" y="50" width="120" height="80" class="step-box source" />
-  <text x="110" y="85" class="text-icon">📄</text>
-  <text x="110" y="110" class="text-title">Source Code</text>
+```mermaid
+flowchart LR
+    subgraph V8 [🧠 V8 Engine Pipeline]
+        direction LR
+        Source[📄 Source Code] -- Tokenizer --> Tokens[🧱 Tokens]
+        Tokens -- Parser --> AST[🌳 AST]
+        AST -- Ignition --> Bytecode[⚙️ Bytecode]
+        Bytecode -- TurboFan JIT --> MachineCode[⚡ Machine Code]
+        MachineCode -. De-opt .-> Bytecode
+        
+        style Source fill:#fff1f2,stroke:#e11d48,stroke-width:2px
+        style Tokens fill:#fff7ed,stroke:#ea580c,stroke-width:2px
+        style AST fill:#fefce8,stroke:#ca8a04,stroke-width:2px
+        style Bytecode fill:#eff6ff,stroke:#2563eb,stroke-width:2px
+        style MachineCode fill:#f3e8ff,stroke:#9333ea,stroke-width:2px
+    end
+```
 
-  <rect x="250" y="50" width="120" height="80" class="step-box parse" />
-  <text x="310" y="85" class="text-icon">🧱</text>
-  <text x="310" y="110" class="text-title">Tokens</text>
-
-  <rect x="450" y="50" width="120" height="80" class="step-box ast" />
-  <text x="510" y="85" class="text-icon">🌳</text>
-  <text x="510" y="110" class="text-title">AST</text>
-
-  <!-- Connections Row 1 -->
-  <path d="M170 90 L250 90" class="path" />
-  <text x="210" y="80" class="label">Tokenizer</text>
-
-  <path d="M370 90 L450 90" class="path" />
-  <text x="410" y="80" class="label">Parser</text>
-
-  <!-- Row 2 -->
-  <rect x="450" y="180" width="120" height="80" class="step-box byte" />
-  <text x="510" y="215" class="text-icon">⚙️</text>
-  <text x="510" y="240" class="text-title">Bytecode</text>
-  
-  <path d="M510 130 L510 180" class="path" />
-  <text x="565" y="160" class="label">Ignition</text>
-
-  <!-- Row 3 -->
-  <rect x="450" y="310" width="120" height="80" class="step-box opt" />
-  <text x="510" y="345" class="text-icon">🚀</text>
-  <text x="510" y="370" class="text-title">TurboFan JIT</text>
-
-  <rect x="250" y="310" width="120" height="80" class="step-box machine" />
-  <text x="310" y="345" class="text-icon">⚡</text>
-  <text x="310" y="370" class="text-title">Machine Code</text>
-
-  <!-- Connections -->
-  <path d="M510 260 L510 310" class="path" />
-  <text x="560" y="290" class="label">Profiler</text>
-
-  <path d="M450 350 L370 350" class="path" />
-  <text x="410" y="340" class="label">Optimizes</text>
-
-  <path d="M310 310 C 310 220, 390 220, 450 220" class="path" stroke-dasharray="4" stroke="#ef4444" />
-  <text x="360" y="240" class="label" fill="#dc2626">De-opt</text>
-</svg>
-:::
 
 ---
 

@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 import { webcrypto } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -49,7 +50,7 @@ function getSidebar() {
     }).filter(item => item !== null);
 }
 
-export default defineConfig({
+export default withMermaid(defineConfig({
     title: "JS & React Architecture",
     description: "Deep-dive learning roadmap",
     ignoreDeadLinks: true,
@@ -68,4 +69,4 @@ export default defineConfig({
             { icon: 'github', link: 'https://github.com/RAJNIKANT1021/JS-low-level-to-high-level' }
         ]
     }
-})
+}))
