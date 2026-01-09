@@ -137,7 +137,6 @@ It has a **4-phase lifecycle**.
 
 * Imports are **references**, not copies
 
-::: info 🔄 The 4 Phases of ESM
 ```mermaid
 graph TD
     P1[1. Parsing] --> P2[2. Instantiation]
@@ -156,7 +155,6 @@ graph TD
     style P4 fill:#fff7ed,stroke:#f97316
     style DETAIL fill:#fff,stroke:#94a3b8,stroke-dasharray: 5 5
 ```
-:::
 
 ---
 
@@ -211,7 +209,6 @@ Bundler knows:
 * No runtime mutation
 * No conditional imports
 
-::: info ✂️ Tree Shaking Visualization
 ```mermaid
 graph LR
     subgraph SRC[Source Code]
@@ -237,7 +234,6 @@ graph LR
     style A fill:#f0f9ff,stroke:#3b82f6
     style FINAL fill:#d1fae5,stroke:#10b981
 ```
-:::
 
 ---
 

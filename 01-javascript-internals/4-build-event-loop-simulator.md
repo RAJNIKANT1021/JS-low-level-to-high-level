@@ -35,7 +35,6 @@ Our simulator will **mimic behavior**, not engine internals.
 
 We will build **5 core components**:
 
-::: info 🏗️ Simulator Class Structure
 ```mermaid
 classDiagram
     class EventLoop {
@@ -49,7 +48,6 @@ classDiagram
     }
     style EventLoop fill:#f0f9ff,stroke:#3b82f6,stroke-width:2px
 ```
-:::
 
 ---
 

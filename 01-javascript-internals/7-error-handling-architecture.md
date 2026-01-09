@@ -25,7 +25,6 @@ const err = new Error("Something went wrong");
 
 Internally:
 
-::: info 🧩 Error Object Internals
 ```mermaid
 classDiagram
     class Error {
@@ -36,7 +35,6 @@ classDiagram
     }
     style Error fill:#fee2e2,stroke:#ef4444,stroke-width:2px
 ```
-:::
 
 ---
 
@@ -94,7 +92,6 @@ a();
 
 ### Call Stack Unwinding
 
-::: info 💥 The Unwinding Process
 ```mermaid
 graph BT
     subgraph STACK[Stack Frame Actions]
@@ -108,7 +105,6 @@ graph BT
     style A fill:#fff7ed,stroke:#f97316
     style G fill:#fef2f2,stroke:#b91c1c
 ```
-:::
 
 No remaining execution continues.
 
@@ -155,7 +151,6 @@ try {
 
 ### Why?
 
-::: info 🚫 Context Isolation
 ```mermaid
 graph TD
     subgraph S1[Stack 1: Sync]
@@ -177,7 +172,6 @@ graph TD
     style S2 fill:#fee2e2,stroke:#ef4444
     style THROW fill:#ef4444,color:#fff
 ```
-:::
 
 * `setTimeout` callback runs in a **new execution context**
 * Original `try` block has already exited
@@ -271,7 +265,6 @@ Important:
 
 ### The Loop of Death
 
-::: info ♾️ Infinite Microtask Loop
 ```mermaid
 graph LR
     M1[Microtask] -->|Schedules| M2[Microtask]
@@ -290,7 +283,6 @@ graph LR
     style M3 fill:#fef3c7,stroke:#f59e0b
     style BLOCKED fill:#fee2e2,stroke:#ef4444
 ```
-:::
 
 ---
 

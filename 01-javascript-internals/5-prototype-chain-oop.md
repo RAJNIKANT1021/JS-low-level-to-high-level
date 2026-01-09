@@ -60,7 +60,6 @@ obj.someProp
 
 JS engine searches:
 
-::: info 🔗 The Search Path
 ```mermaid
 graph TD
     SEARCH[🔎 Search for 'someProp'] --> OBJ[obj]
@@ -78,7 +77,6 @@ graph TD
     style NULL fill:#fee2e2,stroke:#ef4444
     style UNDEF fill:#fee2e2,stroke:#ef4444
 ```
-:::
 
 This is the **Prototype Chain**.
 
@@ -158,7 +156,6 @@ const p = new Person("A");
 
 Internally:
 
-::: info ⚙️ The 'new' Algorithm
 ```mermaid
 graph TD
     START[new Person] --> CREATE[1. Create empty object {}]
@@ -174,7 +171,6 @@ graph TD
     style EXEC fill:#fff7ed,stroke:#f97316
     style RETURN fill:#dcfce7,stroke:#22c55e
 ```
-:::
 
 There is **NO magic**.
 
@@ -276,7 +272,6 @@ This is the #1 source of bugs.
 
 JavaScript follows **4 rules**, in order.
 
-::: info 🎯 'this' Priority Ladder
 ```mermaid
 graph TD
     START{Call Site} --> NEW{Called with 'new'?}
@@ -294,7 +289,6 @@ graph TD
     style IMP fill:#d1fae5,stroke:#10b981
     style DEF fill:#f0f9ff,stroke:#3b82f6
 ```
-:::
 
 ---
 

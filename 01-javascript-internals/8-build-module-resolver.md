@@ -83,7 +83,6 @@ project/
 
 We will build:
 
-::: info 🏗️ Module Resolver Design
 ```mermaid
 classDiagram
     class ModuleResolver {
@@ -105,7 +104,6 @@ classDiagram
     style ModuleResolver fill:#f0f9ff,stroke:#3b82f6,stroke-width:2px
     style Graph fill:#d1fae5,stroke:#10b981
 ```
-:::
 
 ---
 

@@ -37,7 +37,6 @@ a();
 
 ### Call Stack Timeline
 
-::: info 🥞 The Stack in Action
 ```mermaid
 graph TD
     subgraph STACK[Execution Stack Frame]
@@ -58,7 +57,6 @@ graph TD
     style B fill:#bae6fd,stroke:#0284c7
     style C fill:#7dd3fc,stroke:#0369a1
 ```
-:::
 
 ---
 
@@ -103,7 +101,6 @@ let obj = { a: 10 };
 
 ### Memory Model
 
-::: info 🧠 Stack vs Heap
 ```mermaid
 graph LR
     subgraph STACK[⚡ Stack Memory]
@@ -121,7 +118,6 @@ graph LR
     style REF fill:#fff,stroke:#3b82f6
     style DATA fill:#fff,stroke:#8b5cf6
 ```
-:::
 
 ---
 
@@ -222,7 +218,6 @@ Examples:
 
 The loop repeats forever.
 
-::: info 🔄 The Event Loop Cycle
 ```mermaid
 graph TD
     START((Start)) --> CHECK{Stack Empty?}
@@ -244,7 +239,6 @@ graph TD
     style PAINT fill:#ffedd5,stroke:#ea580c
     style RUNMACRO fill:#fee2e2,stroke:#ef4444
 ```
-:::
 
 ---
 
@@ -278,7 +272,6 @@ console.log(4);
 
 ### Execution Order Timeline
 
-::: info ⏱️ Execution Timeline
 ```mermaid
 graph LR
     S1[1] --> S2[4]
@@ -302,7 +295,6 @@ graph LR
     style MICRO fill:#fef3c7,stroke:#f59e0b
     style MACRO fill:#fee2e2,stroke:#ef4444
 ```
-:::
 
 ---
 
@@ -410,7 +402,6 @@ Not guaranteed timing.
 
 ## 1️⃣2️⃣ COMPLETE RUNTIME FLOW (MASTER DIAGRAM)
 
-::: info 🗺️ The Complete Picture
 ```mermaid
 graph TD
     START[JS Starts] --> GEC[Global Context]
@@ -443,7 +434,6 @@ graph TD
     style PAINT fill:#ffedd5,stroke:#ea580c
     style MACRO fill:#fee2e2,stroke:#ef4444
 ```
-:::
 
 ---
 
