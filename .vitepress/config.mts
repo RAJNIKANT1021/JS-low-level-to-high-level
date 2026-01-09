@@ -28,6 +28,7 @@ function getSidebar() {
 
         const files = fs.readdirSync(fullPath)
             .filter(file => file.endsWith('.md'))
+            .sort()
             .map(file => {
                 const name = file.replace('.md', '');
                 // Convert "1-how-js-executes" to "How Js Executes"
