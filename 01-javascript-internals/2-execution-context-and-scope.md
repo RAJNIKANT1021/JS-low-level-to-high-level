@@ -75,21 +75,14 @@ The Execution Context is like a **box** that holds all the information JavaScrip
 ### 🖼️ Visualizing the Execution Context
 
 ::: info 🧠 Execution Context Structure
-<svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="background: #f8fafc; max-width: 100%; border-radius: 12px; border: 1px solid #e2e8f0;">
+<svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; max-width: 100%; border-radius: 12px; border: 1px solid #e2e8f0;">
   <defs>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
-    </filter>
-    <linearGradient id="ecGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#eff6ff" />
-      <stop offset="100%" stop-color="#dbeafe" />
-    </linearGradient>
     <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
     </marker>
   </defs>
   <style>
-    .ec-box { fill: url(#ecGradient); stroke: #3b82f6; stroke-width: 3px; rx: 12; filter: url(#shadow); }
+    .ec-box { fill: #f0f9ff; stroke: #3b82f6; stroke-width: 3px; rx: 12; }
     .mem-box-var { fill: #ffffff; stroke: #8b5cf6; stroke-width: 2px; rx: 8; }
     .mem-box-lex { fill: #ffffff; stroke: #10b981; stroke-width: 2px; rx: 8; }
     .title { font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; fill: #1e3a8a; }
@@ -216,12 +209,12 @@ During this phase:
 ### 📊 The Two Phases: A Visual Flow
 
 ::: info 🔄 The Lifecycle of Execution
-<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
+<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; max-width: 100%; border: 1px solid #e2e8f0; border-radius: 8px;">
   <!-- Styles -->
   <style>
-    .phase-create { fill: #f0f9ff; stroke: #0ea5e9; stroke-width: 3px; rx: 12; filter: url(#shadow); }
-    .phase-exec { fill: #f0fdf4; stroke: #22c55e; stroke-width: 3px; rx: 12; filter: url(#shadow); }
-    .code-block { fill: #0f172a; rx: 8; filter: url(#shadow); }
+    .phase-create { fill: #f0f9ff; stroke: #0ea5e9; stroke-width: 3px; rx: 12; }
+    .phase-exec { fill: #f0fdf4; stroke: #22c55e; stroke-width: 3px; rx: 12; }
+    .code-block { fill: #1e293b; rx: 8; }
     .code-text { font-family: Consolas, monospace; font-size: 14px; fill: #e2e8f0; }
     .mem-slot { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1px; rx: 6; }
     .header { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; text-anchor: middle; }
@@ -230,16 +223,13 @@ During this phase:
     .final-box { fill: #fff7ed; stroke: #f97316; stroke-width: 2px; rx: 6; }
   </style>
   <defs>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="3" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.2"/>
-    </filter>
     <marker id="arrow-head" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
     </marker>
   </defs>
 
   <!-- Title -->
-  <rect x="250" y="10" width="300" height="40" rx="20" fill="#334155" />
+  <rect x="230" y="10" width="340" height="40" rx="20" fill="#334155" />
   <text x="400" y="36" class="header" fill="#ffffff" font-size="16">Creation Phase vs. Execution Phase</text>
 
   <!-- Source Code Column -->
@@ -247,19 +237,19 @@ During this phase:
   <text x="150" y="105" class="header" fill="#38bdf8" font-size="18">📜 Source Code</text>
   
   <!-- Line Highlighting simulation -->
-  <rect x="50" y="130" width="200" height="25" fill="#1e293b" rx="4" />
+  <rect x="50" y="130" width="200" height="25" fill="#334155" rx="4" />
   <text x="60" y="148" class="code-text" fill="#94a3b8">console.log(a);</text>
   
-  <rect x="50" y="160" width="200" height="25" fill="#334155" rx="4" /> <!-- Highlight -->
+  <rect x="50" y="160" width="200" height="25" fill="#475569" rx="4" /> <!-- Highlight -->
   <text x="60" y="178" class="code-text" fill="#fbbf24">var a = 10;</text>
 
-  <rect x="50" y="190" width="200" height="25" fill="#1e293b" rx="4" />
+  <rect x="50" y="190" width="200" height="25" fill="#334155" rx="4" />
   <text x="60" y="208" class="code-text" fill="#94a3b8">console.log(a);</text>
   
-  <rect x="50" y="250" width="200" height="25" fill="#334155" rx="4" /> <!-- Highlight -->
+  <rect x="50" y="250" width="200" height="25" fill="#475569" rx="4" /> <!-- Highlight -->
   <text x="60" y="268" class="code-text" fill="#60a5fa">let b = 20;</text>
   
-  <rect x="50" y="310" width="200" height="80" fill="#1e293b" rx="4" />
+  <rect x="50" y="310" width="200" height="80" fill="#334155" rx="4" />
   <text x="60" y="328" class="code-text" fill="#c084fc">function hi() {</text>
   <text x="80" y="348" class="code-text" fill="#94a3b8">...</text>
   <text x="60" y="368" class="code-text" fill="#c084fc">}</text>
@@ -269,7 +259,8 @@ During this phase:
 
   <!-- Creation Phase Column (BLUE) -->
   <rect x="310" y="70" width="220" height="420" class="phase-create" />
-  <text x="420" y="105" class="header" fill="#0369a1">1️⃣ Creation (Hoisting)</text>
+  <text x="420" y="105" class="header" fill="#0369a1">1️⃣ Creation</text>
+  <text x="420" y="125" class="header" fill="#0369a1" font-size="12">(Hoisting)</text>
   
   <!-- Memory Slots -->
   <rect x="330" y="160" width="180" height="40" class="mem-slot" />
@@ -288,7 +279,7 @@ During this phase:
 
   <!-- Execution Phase Column (GREEN) -->
   <rect x="580" y="70" width="220" height="420" class="phase-exec" />
-  <text x="690" y="105" class="header" fill="#15803d">2️⃣ Execution Phase</text>
+  <text x="690" y="105" class="header" fill="#15803d">2️⃣ Execution</text>
   
   <text x="600" y="150" class="code-text" fill="#333" font-size="12">1. log(a) -> undefined</text>
   <text x="600" y="180" class="code-text" fill="#15803d" font-weight="bold">2. a = 10 (Assigned)</text>
@@ -494,9 +485,9 @@ inner() Lexical Environment
 ### 🕸️ Visualizing the Scope Chain
 
 ::: info 🔗 How Scopes are Nested
-<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" style="background: #ffffff; max-width: 100%; border: 1px solid #e2e8f0; border-radius: 8px;">
   <style>
-    .scope-box { stroke-width: 3px; rx: 16; filter: url(#scopeShadow); }
+    .scope-box { stroke-width: 3px; rx: 16; }
     .global { stroke: #6366f1; fill: #eef2ff; } /* Indigo */
     .outer { stroke: #3b82f6; fill: #eff6ff; } /* Blue */
     .inner { stroke: #10b981; fill: #ecfdf5; } /* Emerald */
@@ -509,9 +500,6 @@ inner() Lexical Environment
     .lookup-text { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #ef4444; }
   </style>
   <defs>
-    <filter id="scopeShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.1"/>
-    </filter>
     <marker id="red-arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L0,8 L12,4 z" fill="#ef4444" />
     </marker>
