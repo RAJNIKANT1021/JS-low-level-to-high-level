@@ -1,10 +1,4 @@
-# 🔥 JavaScript Execution Internals
 
-> **Day 3-4: Execution Context, Lexical Environment, Scope Chain, Hoisting**
-
-This is **core JavaScript architecture**. Everything else (closures, async, React hooks, Fiber, performance) sits on top of this foundation.
-
----
 
 ## 🎯 What You'll Learn
 
@@ -76,7 +70,66 @@ The Execution Context is like a **box** that holds all the information JavaScrip
 
 ### 🖼️ Visualizing the Execution Context
 
+---
+
+### 🖼️ Visualizing the Execution Context
+
 ::: info 🧠 Execution Context Structure
+<svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="background: #f8fafc; max-width: 100%; border-radius: 12px; border: 1px solid #e2e8f0;">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.15"/>
+    </filter>
+    <linearGradient id="ecGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3b82f6" />
+    </marker>
+  </defs>
+  <style>
+    .ec-box { fill: url(#ecGradient); stroke: #3b82f6; stroke-width: 3px; rx: 12; filter: url(#shadow); }
+    .mem-box-var { fill: #ffffff; stroke: #8b5cf6; stroke-width: 2px; rx: 8; }
+    .mem-box-lex { fill: #ffffff; stroke: #10b981; stroke-width: 2px; rx: 8; }
+    .title { font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; fill: #1e3a8a; }
+    .subtitle { font-family: 'Segoe UI', sans-serif; font-size: 14px; font-weight: bold; }
+    .code { font-family: Consolas, monospace; font-size: 13px; fill: #334155; }
+    .note { font-family: 'Segoe UI', sans-serif; font-size: 12px; fill: #64748b; font-style: italic; }
+    .path { stroke: #3b82f6; stroke-width: 3px; fill: none; marker-end: url(#arrow-blue); }
+    .badge { fill: #dbeafe; rx: 4; }
+  </style>
+
+  <!-- Execution Context Container -->
+  <rect x="50" y="40" width="700" height="280" class="ec-box" />
+  <text x="80" y="75" class="title">📦 Execution Context Object</text>
+
+  <!-- Variable Environment (Purple Theme) -->
+  <rect x="80" y="100" width="300" height="200" class="mem-box-var" />
+  <rect x="80" y="100" width="300" height="40" fill="#f3e8ff" rx="8" /> <!-- Header BG -->
+  <text x="100" y="128" class="subtitle" fill="#6b21a8">Variable Environment</text>
+  
+  <text x="100" y="165" class="code" fill="#7c3aed">var city = undefined</text>
+  <text x="100" y="195" class="code" fill="#7c3aed">function greet() { ... }</text>
+  <text x="100" y="270" class="note">Holds "var" & function declarations</text>
+
+  <!-- Lexical Environment (Green Theme) -->
+  <rect x="420" y="100" width="300" height="200" class="mem-box-lex" />
+  <rect x="420" y="100" width="300" height="40" fill="#d1fae5" rx="8" /> <!-- Header BG -->
+  <text x="440" y="128" class="subtitle" fill="#047857">Lexical Environment</text>
+  
+  <text x="440" y="165" class="code" fill="#b91c1c">const id = &lt;uninitialized&gt;</text>
+  <text x="440" y="195" class="code" fill="#059669">let name = "Raj"</text>
+  
+  <!-- Outer Reference -->
+  <rect x="440" y="235" width="140" height="30" class="badge" />
+  <text x="450" y="255" class="subtitle" font-size="12" fill="#1d4ed8">Outer Reference 🔗</text>
+  <path d="M510 265 L510 290" class="path" />
+  <text x="490" y="315" font-family="sans-serif" font-size="12" fill="#3b82f6" font-weight="bold">Points to Parent Scope</text>
+</svg>
+:::
+
+---
 <svg viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
@@ -158,7 +211,102 @@ During this phase:
 
 ### 📊 The Two Phases: A Visual Flow
 
+---
+
+### 📊 The Two Phases: A Visual Flow
+
 ::: info 🔄 The Lifecycle of Execution
+<svg viewBox="0 0 800 520" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
+  <!-- Styles -->
+  <style>
+    .phase-create { fill: #f0f9ff; stroke: #0ea5e9; stroke-width: 3px; rx: 12; filter: url(#shadow); }
+    .phase-exec { fill: #f0fdf4; stroke: #22c55e; stroke-width: 3px; rx: 12; filter: url(#shadow); }
+    .code-block { fill: #0f172a; rx: 8; filter: url(#shadow); }
+    .code-text { font-family: Consolas, monospace; font-size: 14px; fill: #e2e8f0; }
+    .mem-slot { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1px; rx: 6; }
+    .header { font-family: 'Segoe UI', sans-serif; font-size: 20px; font-weight: bold; text-anchor: middle; }
+    .arrow-icon { stroke: #64748b; stroke-width: 3px; marker-end: url(#arrow-head); }
+    .tdz-box { fill: #fee2e2; stroke: #ef4444; stroke-dasharray: 5,5; }
+    .final-box { fill: #fff7ed; stroke: #f97316; stroke-width: 2px; rx: 6; }
+  </style>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+    <marker id="arrow-head" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L0,6 L9,3 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <rect x="250" y="10" width="300" height="40" rx="20" fill="#334155" />
+  <text x="400" y="36" class="header" fill="#ffffff" font-size="16">Creation Phase vs. Execution Phase</text>
+
+  <!-- Source Code Column -->
+  <rect x="40" y="70" width="220" height="420" class="code-block" />
+  <text x="150" y="105" class="header" fill="#38bdf8" font-size="18">📜 Source Code</text>
+  
+  <!-- Line Highlighting simulation -->
+  <rect x="50" y="130" width="200" height="25" fill="#1e293b" rx="4" />
+  <text x="60" y="148" class="code-text" fill="#94a3b8">console.log(a);</text>
+  
+  <rect x="50" y="160" width="200" height="25" fill="#334155" rx="4" /> <!-- Highlight -->
+  <text x="60" y="178" class="code-text" fill="#fbbf24">var a = 10;</text>
+
+  <rect x="50" y="190" width="200" height="25" fill="#1e293b" rx="4" />
+  <text x="60" y="208" class="code-text" fill="#94a3b8">console.log(a);</text>
+  
+  <rect x="50" y="250" width="200" height="25" fill="#334155" rx="4" /> <!-- Highlight -->
+  <text x="60" y="268" class="code-text" fill="#60a5fa">let b = 20;</text>
+  
+  <rect x="50" y="310" width="200" height="80" fill="#1e293b" rx="4" />
+  <text x="60" y="328" class="code-text" fill="#c084fc">function hi() {</text>
+  <text x="80" y="348" class="code-text" fill="#94a3b8">...</text>
+  <text x="60" y="368" class="code-text" fill="#c084fc">}</text>
+
+  <!-- Arrow -->
+  <path d="M270 280 L300 280" class="arrow-icon" />
+
+  <!-- Creation Phase Column (BLUE) -->
+  <rect x="310" y="70" width="220" height="420" class="phase-create" />
+  <text x="420" y="105" class="header" fill="#0369a1">1️⃣ Creation (Hoisting)</text>
+  
+  <!-- Memory Slots -->
+  <rect x="330" y="160" width="180" height="40" class="mem-slot" />
+  <text x="340" y="185" class="code-text" fill="#333" font-weight="bold">a : undefined</text>
+  <circle cx="500" cy="180" r="5" fill="#fbbf24" /> <!-- Indicator -->
+  
+  <rect x="330" y="250" width="180" height="40" class="mem-slot tdz-box" />
+  <text x="340" y="275" class="code-text" fill="#dc2626" font-weight="bold">b : &lt;TDZ&gt; 🚫</text>
+  
+  <rect x="330" y="320" width="180" height="60" class="mem-slot" />
+  <text x="340" y="345" class="code-text" fill="#333" font-weight="bold">hi : fn code...</text>
+  <text x="340" y="365" font-family="sans-serif" font-size="11" fill="#059669">✅ Fully Hoisted</text>
+
+  <!-- Arrow -->
+  <path d="M540 280 L570 280" class="arrow-icon" />
+
+  <!-- Execution Phase Column (GREEN) -->
+  <rect x="580" y="70" width="220" height="420" class="phase-exec" />
+  <text x="690" y="105" class="header" fill="#15803d">2️⃣ Execution Phase</text>
+  
+  <text x="600" y="150" class="code-text" fill="#333" font-size="12">1. log(a) -> undefined</text>
+  <text x="600" y="180" class="code-text" fill="#15803d" font-weight="bold">2. a = 10 (Assigned)</text>
+  <text x="600" y="210" class="code-text" fill="#333" font-size="12">3. log(a) -> 10</text>
+  
+  <rect x="595" y="240" width="190" height="30" fill="#dcfce7" rx="4" />
+  <text x="600" y="260" class="code-text" fill="#15803d" font-weight="bold">4. b = 20 (TDZ Ends)</text>
+  
+  <!-- Final Memory State -->
+  <rect x="600" y="360" width="180" height="80" class="final-box" />
+  <text x="690" y="380" font-size="12" text-anchor="middle" font-weight="bold" fill="#ea580c">🔥 Final Memory</text>
+  <text x="610" y="405" class="code-text" fill="#333">a: 10</text>
+  <text x="610" y="425" class="code-text" fill="#333">b: 20</text>
+
+</svg>
+:::
+
+---
 <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
   <!-- Styles -->
   <style>
@@ -341,7 +489,77 @@ inner() Lexical Environment
 
 ### 🕸️ Visualizing the Scope Chain
 
+---
+
+### 🕸️ Visualizing the Scope Chain
+
 ::: info 🔗 How Scopes are Nested
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
+  <style>
+    .scope-box { stroke-width: 3px; rx: 16; filter: url(#scopeShadow); }
+    .global { stroke: #6366f1; fill: #eef2ff; } /* Indigo */
+    .outer { stroke: #3b82f6; fill: #eff6ff; } /* Blue */
+    .inner { stroke: #10b981; fill: #ecfdf5; } /* Emerald */
+    
+    .title { font-family: 'Segoe UI', sans-serif; font-weight: bold; font-size: 16px; }
+    .var-badge { font-family: Consolas, monospace; font-size: 13px; fill: #1e293b; font-weight: bold; }
+    .badge-bg { rx: 6; fill: #ffffff; stroke-width: 1px; stroke: #cbd5e1; }
+    
+    .arrow-lookup { stroke: #ef4444; stroke-width: 3px; fill: none; marker-end: url(#red-arrow); stroke-dasharray: 6,4; }
+    .lookup-text { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #ef4444; }
+  </style>
+  <defs>
+    <filter id="scopeShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+    <marker id="red-arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L0,8 L12,4 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Global Scope (Layer 1) -->
+  <rect x="40" y="30" width="720" height="420" class="scope-box global" />
+  <text x="70" y="65" class="title" fill="#4338ca">🌍 Global Scope</text>
+  
+  <rect x="520" y="45" width="200" height="30" class="badge-bg" />
+  <text x="535" y="65" class="var-badge">globalVar = "Global"</text>
+
+  <!-- Outer Function Scope (Layer 2) -->
+  <rect x="90" y="100" width="620" height="320" class="scope-box outer" />
+  <text x="120" y="135" class="title" fill="#1d4ed8">📦 outer() Scope</text>
+  
+  <rect x="480" y="115" width="180" height="30" class="badge-bg" />
+  <text x="495" y="135" class="var-badge">outerVar = "Outer"</text>
+
+  <!-- Inner Function Scope (Layer 3) -->
+  <rect x="140" y="180" width="520" height="210" class="scope-box inner" />
+  <text x="170" y="215" class="title" fill="#047857">🎯 inner() Scope</text>
+  
+  <rect x="430" y="195" width="180" height="30" class="badge-bg" />
+  <text x="445" y="215" class="var-badge">innerVar = "Inner"</text>
+
+  <!-- Code simulation inside inner -->
+  <rect x="180" y="250" width="440" height="120" fill="#ffffff" stroke="#94a3b8" rx="8" />
+  <text x="200" y="275" font-family="Consolas, monospace" font-weight="bold" fill="#333" font-size="14">// Execution inside inner():</text>
+  
+  <!-- Lookup 1: Local -->
+  <text x="200" y="300" font-family="Consolas, monospace" fill="#333">log(innerVar);</text>
+  <text x="480" y="300" font-family="sans-serif" font-size="12" fill="#16a34a" font-weight="bold">✅ Found Locally</text>
+
+  <!-- Lookup 2: Outer -->
+  <text x="200" y="330" font-family="Consolas, monospace" fill="#333">log(outerVar);</text>
+  <path d="M350 325 L410 130" class="arrow-lookup" />
+  <text x="420" y="315" class="lookup-text">⬆️ Scope Chain</text>
+
+  <!-- Lookup 3: Global -->
+  <text x="200" y="360" font-family="Consolas, monospace" fill="#333">log(globalVar);</text>
+  <path d="M360 355 L510 60" class="arrow-lookup" />
+  <text x="520" y="100" class="lookup-text">🚀 Up to Global</text>
+
+</svg>
+:::
+
+---
 <svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" style="background: transparent; max-width: 100%;">
   <style>
     .scope-box { fill: rgba(255,255,255,0.8); stroke-width: 2px; rx: 8; }

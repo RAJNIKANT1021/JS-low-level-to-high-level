@@ -29,8 +29,10 @@ function getSidebar() {
             .filter(file => file.endsWith('.md'))
             .map(file => {
                 const name = file.replace('.md', '');
-                // Convert "week-1-js-engine" to "Week 1 Js Engine"
-                const text = name.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                // Convert "1-how-js-executes" to "How Js Executes"
+                // Remove leading numbers and dashes (e.g. "1-", "01-")
+                const cleanName = name.replace(/^\d+-/, '');
+                const text = cleanName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
                 return {
                     text: text,
                     link: `/${dir}/${name}`
