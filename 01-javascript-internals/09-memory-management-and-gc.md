@@ -28,7 +28,6 @@ In JS, V8 handles #1 and #3.
 | **Speed** | Ultra Fast (LIFO) | Slower (Pointer lookup) |
 | **Cleanup** | Auto (Pop frame) | **Garbage Collector** |
 
-::: info 🧠 Memory Architecture
 ```mermaid
 graph LR
     subgraph S[Stack]
@@ -46,7 +45,7 @@ graph LR
     style S fill:#f0f9ff,stroke:#3b82f6
     style H fill:#f3e8ff,stroke:#8b5cf6
 ```
-:::
+
 
 ---
 
@@ -75,7 +74,6 @@ V8 scans memory. Anything **NOT marked** is deleted.
 ### Step 3: Compacting
 V8 moves live objects together to prevent **fragmentation**.
 
-::: info 🧹 Mark & Sweep
 ```mermaid
 graph TD
     ROOT[Roots] --> A[Obj A]
@@ -93,7 +91,7 @@ graph TD
     style D fill:#fee2e2,stroke:#ef4444
     style E fill:#fee2e2,stroke:#ef4444
 ```
-:::
+
 
 > **D and E** are connected to each other, but **disconnected from Root**. They are garbage (Islands).
 

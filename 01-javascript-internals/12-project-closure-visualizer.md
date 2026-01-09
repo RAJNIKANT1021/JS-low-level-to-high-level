@@ -31,7 +31,6 @@ function outer() {
 
 We will use a simple **Regex-based parser** (for education) to detect function nesting.
 
-::: info 🏗️ Visualizer Design
 ```mermaid
 classDiagram
     class Visualizer {
@@ -42,7 +41,7 @@ classDiagram
     }
     style Visualizer fill:#f0f9ff,stroke:#3b82f6
 ```
-:::
+
 
 ---
 

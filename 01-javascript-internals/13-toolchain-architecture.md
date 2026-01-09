@@ -1,6 +1,6 @@
 # 🔥 TOOLCHAIN ARCHITECTURE (WEBPACK / VITE)
 
-## AST Transforms · HMR · Bundling vs Native ESM · Babel
+## Bundlers · Native ESM · HMR · Dependency Graphs
 
 Toolchains are not magic. They are **AST pipelines**.
 
@@ -32,7 +32,6 @@ Webpack is an **Event-Driven Plugin System** built on **Tapable**.
 
 ### The Pipeline
 
-::: info 📦 Webpack Flow
 ```mermaid
 graph TD
     INIT[1. Init (Read Config)] --> RUN[2. Run]
@@ -53,7 +52,6 @@ graph TD
     style SEAL fill:#f0f9ff,stroke:#64748b
     style EMIT fill:#d1fae5,stroke:#10b981
 ```
-:::
 
 **Key Concept**: "Loaders" transform files. "Plugins" listen to events.
 
@@ -85,7 +83,6 @@ How does code update without refreshing?
 4. **Runtime**: bubbles/propagates signal.
 5. **Component**: `module.hot.accept()` catches the signal and re-renders.
 
-::: info 🔄 HMR Loop
 ```mermaid
 graph LR
     FILE[File Save] --> SERVER[Dev Server]
@@ -98,29 +95,11 @@ graph LR
     style SERVER fill:#f3e8ff,stroke:#8b5cf6
     style CLIENT fill:#d1fae5,stroke:#10b981
 ```
-:::
-
----
-
-## 5️⃣ BABEL & AST TRANSFORMS
-
-Babel is a **Transpiler**. It changes syntax.
-
-### The 3 Stages
-1. **Parse**: Code -> AST
-2. **Transform**: AST -> New AST (Plugins work here)
-3. **Generate**: New AST -> Code
-
-### Example: Arrow Function Plugin
-**Input**: `const f = () => {};`
-**Visitor**:
-"When you see `ArrowFunctionExpression`, replace it with `FunctionExpression` and bind `this`."
 
 ---
 
 ## ✅ YOU NOW UNDERSTAND
 * Why Vite is faster than Webpack (Dev vs Bundling)
 * That HMR is just WebSockets + Client Runtime
-* That Babel works by mutating the AST
 
-This chapter is **complete**.
+**Next Chapter:** We dive deep into **AST & Babel**.

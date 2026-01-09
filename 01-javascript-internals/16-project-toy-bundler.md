@@ -16,7 +16,6 @@ Output: `bundle.js` (single file, executable in browser).
 
 ## 🧩 ARCHITECTURE
 
-::: info 📦 Toy Bundler Design
 ```mermaid
 graph TD
     ENTRY[Entry File] --> PARSER[1. Create Asset (AST)]
@@ -30,7 +29,7 @@ graph TD
     style GRAPH fill:#d1fae5,stroke:#10b981
     style BUNDLE fill:#ffedd5,stroke:#ea580c
 ```
-:::
+
 
 ---
 

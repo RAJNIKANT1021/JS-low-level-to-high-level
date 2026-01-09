@@ -45,7 +45,6 @@ If `outer()` finished execution, its stack frame is gone.
 V8 detects `inner` references `count`.
 It **removes `count` from the Stack** and **moves it to the Heap**.
 
-::: info 🎒 Closure Backpack
 ```mermaid
 graph TD
     FN[fn (on Stack)] --> OBJ[Function Object (Heap)]
@@ -57,7 +56,7 @@ graph TD
     style SCOPE fill:#d1fae5,stroke:#10b981
     style COUNT fill:#d1fae5,stroke:#10b981
 ```
-:::
+
 
 ---
 

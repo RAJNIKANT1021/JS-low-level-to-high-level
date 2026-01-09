@@ -17,7 +17,6 @@ JavaScript is **NOT** purely interpreted.
 JavaScript is **NOT** purely compiled.
 It is **JIT (Just-In-Time) Compiled**.
 
-::: info 🧠 V8 Engine Pipeline
 ```mermaid
 flowchart LR
     SRC[📄 Source Code] --> PARSE[Parsing]
@@ -37,7 +36,7 @@ flowchart LR
     style TURBO fill:#f3e8ff,stroke:#9333ea
     style OPT fill:#d1fae5,stroke:#10b981
 ```
-:::
+```
 
 ---
 
@@ -130,7 +129,6 @@ obj.x = 1;
 obj.y = 2;
 ```
 
-::: info 🔷 Shape Transitions
 ```mermaid
 graph LR
     C0[Shape 0<br/>{}] -- add 'x' --> C1[Shape 1<br/>{ x }]
@@ -140,7 +138,7 @@ graph LR
     style C1 fill:#dbeafe,stroke:#3b82f6
     style C2 fill:#d1fae5,stroke:#10b981
 ```
-:::
+```
 
 ### ⚡ Optimization Rule
 If two objects share the same Hidden Class, V8 reads them fast.

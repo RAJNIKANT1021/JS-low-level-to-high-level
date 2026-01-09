@@ -91,7 +91,6 @@ Using `Atomics.wait()` and `Atomics.notify()` you can put execution to sleep unt
 
 Most high-performance web apps (Figma, VS Code Web) use this:
 
-::: info 🧵 Worker Architecture
 ```mermaid
 graph TD
     MAIN[Main Thread (UI/Events)]
@@ -108,7 +107,7 @@ graph TD
     style W2 fill:#f3e8ff,stroke:#8b5cf6
     style W3 fill:#f3e8ff,stroke:#8b5cf6
 ```
-:::
+
 
 ---
 
